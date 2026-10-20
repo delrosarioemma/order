@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dressed by Emma</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+   <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #fff7fa;
+        color: #3a2630;
+    }
+
+    main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 45px 30px 60px;
+    }
+
+    /* ===== HEADER ===== */
+
+    h1 {
+        text-align: center;
+        margin: 0;
+        font-size: 38px;
+        letter-spacing: 3px;
+        color: #3a2630;
+        text-transform: uppercase;
+    }
+
+    h1::after {
+        content: "";
+        display: block;
+        width: 55px;
+        height: 3px;
+        background: #c45a7a;
+        margin: 15px auto 45px;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 28px;
+        margin: 35px 0 25px;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+
+    h3 {
+        color: #3a2630;
+    }
+
+    /* ===== DRESS LIST ===== */
+
+    ul {
+        max-width: 500px;
+        margin: 0 auto 45px;
+        padding: 20px 30px;
+        background: white;
+        border-radius: 12px;
+        list-style-position: inside;
+        box-shadow: 0 5px 20px rgba(58, 38, 48, 0.06);
+    }
+
+    li {
+        padding: 7px 0;
+    }
+
+    /* ===== DRESS CARDS ===== */
+
+    .dress-menu {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        margin: 20px 0 50px;
+    }
+
+    .dress-card {
+        background: white;
+        border: 2px solid transparent;
+        border-radius: 14px;
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.25s ease, box-shadow 0.25s ease,
+                    border-color 0.25s ease;
+        box-shadow: 0 5px 20px rgba(58, 38, 48, 0.07);
+    }
+
+    .dress-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px rgba(58, 38, 48, 0.12);
+    }
+
+    .dress-card.selected {
+        border: 2px solid #c45a7a;
+        box-shadow: 0 8px 25px rgba(196, 90, 122, 0.2);
+    }
+
+    .dress-card img {
+        width: 100%;
+        height: 330px;
+        object-fit: cover;
+        border-radius: 9px;
+        display: block;
+    }
+
+    .dress-card h3 {
+        margin: 15px 5px 5px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .dress-card p {
+        margin: 0 5px 12px;
+        color: #c45a7a;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .size-options {
+        display: none;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #f0dce3;
+    }
+
+    .dress-card.selected .size-options {
+        display: block;
+    }
+
+    .size-options span {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 13px;
+        color: #3a2630;
+        font-weight: bold;
+    }
+
+    .sizes {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .size-btn {
+        width: 40px;
+        height: 35px;
+        padding: 0;
+        margin: 0;
+        border: 1px solid #c45a7a;
+        border-radius: 6px;
+        background: white;
+        color: #c45a7a;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .size-btn:hover {
+        background: #f8e3ea;
+        opacity: 1;
+        transform: none;
+    }
+
+    .size-btn.selected-size {
+        background: #c45a7a;
+        color: white;
+    }
+
+    /* ===== FORM ===== */
+
+    form {
+        background: white;
+        padding: 35px;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(58, 38, 48, 0.07);
+        margin-top: 20px;
+    }
+
+    label {
+        display: block;
+        margin-top: 12px;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input,
+    select {
+        width: 100%;
+        padding: 12px 14px;
+        margin: 5px 0 15px;
+        border: 1px solid #e5c8d2;
+        border-radius: 8px;
+        background: #fff7fa;
+        color: #3a2630;
+        font-size: 15px;
+        outline: none;
+    }
+
+    input:focus,
+    select:focus {
+        border-color: #c45a7a;
+    }
+
+    /* ===== BUTTONS ===== */
+
+    button {
+        padding: 11px 18px;
+        margin: 5px 5px 10px 0;
+        border: none;
+        border-radius: 7px;
+        background: #c45a7a;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+    }
+
+    button i {
+        margin-right: 6px;
+    }
+
+    /* ===== RENTAL TABLE ===== */
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: white;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    th {
+        background: #f8e3ea;
+        color: #3a2630;
+        font-weight: bold;
+    }
+
+    th,
+    td {
+        border-bottom: 1px solid #ead6dd;
+        padding: 12px;
+        text-align: left;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* ===== TOTAL / PAYMENT ===== */
+
+    #total,
+    #change {
+        color: #c45a7a;
+        font-weight: bold;
+    }
+
+    #message {
+        color: #c45a7a;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    /* ===== RECEIPT ===== */
+
+    #receipt {
+        display: none;
+    }
+
+    @page {
+        size: 80mm 200mm;
+        margin: 0;
+    }
+
+    @media print {
+        html,
+        body {
+            width: 80mm;
+            margin: 0;
+            padding: 0;
+            background: white;
+        }
+
+        main {
+            display: none;
+        }
+
+        #receipt {
+            display: block;
+        }
+    }
+
+    #receipt {
+        box-sizing: border-box;
+        width: 80mm;
+        padding: 5mm 4mm;
+        background: white;
+        color: black;
+        font-family: "Courier New", monospace;
+        font-size: 12px;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+    }
+
+    #receipt h2 {
+        margin: 0 0 4px;
+        font-size: 18px;
+    }
+
+    #receipt p {
+        margin: 3px 0;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .line {
+        border-top: 1px dashed black;
+        margin: 8px 0;
+    }
+
+    .receipt-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        margin: 4px 0;
+    }
+
+    .receipt-row span:last-child,
+    .receipt-row strong:last-child {
+        white-space: nowrap;
+    }
+
+    .receipt-item {
+        margin-bottom: 8px;
+        break-inside: avoid;
+    }
+
+    .receipt-summary {
+        break-inside: avoid;
+    }
+
+    #receipt.measuring {
+        display: block;
+        position: absolute;
+        left: -10000px;
+        top: 0;
+    }
+
+    /* ===== MOBILE ===== */
+
+    @media (max-width: 750px) {
+        main {
+            padding: 30px 18px 45px;
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+
+        .dress-menu {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .dress-card img {
+            height: 260px;
+        }
+
+        form {
+            padding: 25px 20px;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .dress-menu {
+            grid-template-columns: 1fr;
+        }
+
+        .dress-card img {
+            height: 360px;
+        }
+
+        h1 {
+            font-size: 25px;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-size: 23px;
+        }
+
+        button {
+            width: 100%;
+            margin-right: 0;
+        }
+    }
+    .size-guide-btn {
+    display: block;
+    margin: -5px auto 30px;
+}
+
+.size-guide-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(58, 38, 48, 0.45);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.size-guide-overlay.show {
+    display: flex;
+}
+
+.size-guide-box {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    background: #fff7fa;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(58, 38, 48, 0.2);
+}
+
+.size-guide-box h2 {
+    margin: 0 0 8px;
+    color: #3a2630;
+}
+
+.size-guide-box > p {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.close-size-guide {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: auto;
+    margin: 0;
+    padding: 2px 8px;
+    background: transparent;
+    color: #c45a7a;
+    font-size: 28px;
+}
+
+.close-size-guide:hover {
+    transform: none;
+    opacity: 0.7;
+}
+
+.size-guide-table {
+    width: 100%;
+    margin: 0;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.size-guide-table th {
+    background: #f8e3ea;
+}
+
+.size-guide-table th,
+.size-guide-table td {
+    text-align: center;
+    padding: 11px 8px;
+}
+
+.size-guide-note {
+    color: #3a2630;
+    font-size: 12px !important;
+    line-height: 1.5;
+    margin-top: 18px !important;
+}
+</style>
+
+ 
+    <style id="paperSize"></style>
+</head>
+ 
+<body>
+        <header>
+        <nav>
+            <div class="logo">Dressed by Emma</div>
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+   
+<div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="activities.html">Activities</a>
+    <a href="order.html">Order</a>
+</div>
+
+        </nav>
+    </header>
+
+    <main>
+        <h1>Dressed by Emma</h1>
+ 
+        <h2>Dresses Available</h2>
+        <button type="button" class="size-guide-btn" onclick="openSizeGuide()">
+        <i class="fa-solid fa-ruler"></i> View Size Guide
+        </button>
+ 
+        <form id="orderForm">
+            <label for="food">Select dress:</label><br>
+ 
+        <div class="dress-menu">
+
+    <div class="dress-card" data-dress="elara">
+        <img src="elara.jpg" alt="Elara">
+        <h3>Elara</h3>
+        <p>₱100.00 / day</p>
+        <div class="size-options">
+            <span>Select Size</span>
+            <div class="sizes">
+                <button type="button" class="size-btn" data-size="XS">XS</button>
+                <button type="button" class="size-btn" data-size="S">S</button>
+                <button type="button" class="size-btn" data-size="M">M</button>
+                <button type="button" class="size-btn" data-size="L">L</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dress-card" data-dress="emmanuelle">
+        <img src="emmanuelle.jpg" alt="Emmanuelle">
+        <h3>Emmanuelle</h3>
+        <p>₱150.00 / day</p>
+        <div class="size-options">
+            <span>Select Size</span>
+            <div class="sizes">
+                <button type="button" class="size-btn" data-size="XS">XS</button>
+                <button type="button" class="size-btn" data-size="S">S</button>
+                <button type="button" class="size-btn" data-size="M">M</button>
+                <button type="button" class="size-btn" data-size="L">L</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dress-card" data-dress="roselle">
+        <img src="roselle.jpg" alt="Roselle">
+        <h3>Roselle</h3>
+        <p>₱150.00 / day</p>
+        <div class="size-options">
+            <span>Select Size</span>
+            <div class="sizes">
+                <button type="button" class="size-btn" data-size="XS">XS</button>
+                <button type="button" class="size-btn" data-size="S">S</button>
+                <button type="button" class="size-btn" data-size="M">M</button>
+                <button type="button" class="size-btn" data-size="L">L</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dress-card" data-dress="celestia">
+        <img src="celestia.jpg" alt="Celestia">
+        <h3>Celestia</h3>
+        <p>₱180.00 / day</p>
+        <div class="size-options">
+            <span>Select Size</span>
+            <div class="sizes">
+                <button type="button" class="size-btn" data-size="XS">XS</button>
+                <button type="button" class="size-btn" data-size="S">S</button>
+                <button type="button" class="size-btn" data-size="M">M</button>
+                <button type="button" class="size-btn" data-size="L">L</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dress-card" data-dress="seraphina">
+        <img src="seraphina.jpg" alt="Seraphina">
+        <h3>Seraphina</h3>
+        <p>₱200.00 / day</p>
+        <div class="size-options">
+            <span>Select Size</span>
+            <div class="sizes">
+                <button type="button" class="size-btn" data-size="XS">XS</button>
+                <button type="button" class="size-btn" data-size="S">S</button>
+                <button type="button" class="size-btn" data-size="M">M</button>
+                <button type="button" class="size-btn" data-size="L">L</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dress-card" data-dress="amara">
+        <img src="amara.jpg" alt="Amara">
+        <h3>Amara</h3>
+        <p>₱200.00 / day</p>
+        <div class="size-options">
+            <span>Select Size</span>
+            <div class="sizes">
+                <button type="button" class="size-btn" data-size="XS">XS</button>
+                <button type="button" class="size-btn" data-size="S">S</button>
+                <button type="button" class="size-btn" data-size="M">M</button>
+                <button type="button" class="size-btn" data-size="L">L</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<input type="hidden" id="food" value="elara">
+ 
+            <br>
+ 
+            <label for="quantity">Rental Days:</label><br>
+ 
+            <input
+                type="number"
+                id="quantity"
+                min="1"
+                max="100"
+                step="1"
+                value="1"
+                required
+            >
+ 
+            <br>
+ 
+            <button type="submit">
+            <i class="fa-solid fa-cart-plus"></i> Add Rental
+            </button>
+        </form>
+ 
+        <h2>Your Rental</h2>
+ 
+        <table>
+            <thead>
+                <tr>
+                    <th>Dress</th>
+                    <th>Size</th>
+                    <th>Price</th>
+                    <th>Rental Days</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+ 
+            <tbody id="orderList"></tbody>
+        </table>
+ 
+        <h3>Total: ₱<span id="total">0.00</span></h3>
+ 
+        <h2>Customer Information</h2>
+
+        <label for="customerName">Customer Name:</label> <br>
+
+        <input
+            type="text"
+            id="customerName"
+            placeholder="Enter customer name"
+            required
+        >
+        <br>
+
+        <h2>Payment</h2>
+ 
+        <label for="payment">Amount received (₱):</label><br>
+ 
+        <input
+            type="number"
+            id="payment"
+            min="0"
+            step="0.01"
+            placeholder="Enter payment"
+            required
+        >
+ 
+        <br>
+ 
+        <button type="button" onclick="calculateChange()">
+            <i class="fa-solid fa-calculator"></i> Calculate
+        </button>
+ 
+        <h3>Change: ₱<span id="change">0.00</span></h3>
+ 
+        <button type="button" onclick="printReceipt()">
+            <i class="fa-solid fa-print"></i> Print
+        </button>
+ 
+        <button type="button" onclick="clearOrder()">
+            <i class="fa-solid fa-trash"></i> Clear
+        </button>
+ 
+        <p id="message" aria-live="polite"></p>
+
+        <div id="sizeGuide" class="size-guide-overlay">
+    <div class="size-guide-box">
+
+        <button type="button" class="close-size-guide" onclick="closeSizeGuide()">
+            &times;
+        </button>
+
+        <h2>Size Guide</h2>
+        <p>Use the measurements below to help you choose your size.</p>
+
+        <table class="size-guide-table">
+            <thead>
+                <tr>
+                    <th>Size</th>
+                    <th>Bust</th>
+                    <th>Waist</th>
+                    <th>Hips</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>XS</td>
+                    <td>30–32"</td>
+                    <td>23–25"</td>
+                    <td>32–34"</td>
+                </tr>
+
+                <tr>
+                    <td>S</td>
+                    <td>32–34"</td>
+                    <td>25–27"</td>
+                    <td>34–36"</td>
+                </tr>
+
+                <tr>
+                    <td>M</td>
+                    <td>34–36"</td>
+                    <td>27–29"</td>
+                    <td>36–38"</td>
+                </tr>
+
+                <tr>
+                    <td>L</td>
+                    <td>36–38"</td>
+                    <td>29–31"</td>
+                    <td>38–40"</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="size-guide-note">
+            Measurements are approximate. For the best fit, compare your measurements with the guide before renting.
+        </p>
+
+    </div>
+</div>
+    </main>
+ 
+ 
+    <div id="receipt">
+        <div class="center">
+            <h2>Dressed by Emma</h2>
+            <p>ORDER RECEIPT</p>
+            <p id="receiptCustomer"></p>
+            <p id="receiptDate"></p>
+            
+        </div>
+ 
+        <div class="line"></div>
+ 
+        <div class="receipt-row">
+            <strong>ITEM / RD</strong>
+            <strong>AMOUNT</strong>
+        </div>
+ 
+        <div class="line"></div>
+ 
+        <div id="receiptItems"></div>
+ 
+        <div class="receipt-summary">
+            <div class="line"></div>
+ 
+            <div class="receipt-row">
+                <strong>TOTAL</strong>
+                <strong id="receiptTotal"></strong>
+            </div>
+ 
+            <div class="receipt-row">
+                <span>CASH</span>
+                <span id="receiptPayment"></span>
+            </div>
+ 
+            <div class="receipt-row">
+                <span>CHANGE</span>
+                <span id="receiptChange"></span>
+            </div>
+ 
+            <div class="line"></div>
+ 
+            <div class="center">
+                <p>Thank you for your rental!</p>
+                <p>Come again for a fairytale experience!</p>
+            </div>
+        </div>
+    </div>
+ 
+    <script>
+
+        let orders = [];
+        let total = 0;
+        
+       let selectedSize = "";
+
+document.querySelectorAll(".dress-card").forEach(function(card) {
+
+    card.addEventListener("click", function() {
+
+        let dress = card.getAttribute("data-dress");
+
+        document.getElementById("food").value = dress;
+
+        document.querySelectorAll(".dress-card").forEach(function(item) {
+            item.classList.remove("selected");
+        });
+
+        card.classList.add("selected");
+
+        selectedSize = "";
+
+        card.querySelectorAll(".size-btn").forEach(function(button) {
+            button.classList.remove("selected-size");
+        });
+
+        document.getElementById("message").textContent =
+            dress.charAt(0).toUpperCase() + dress.slice(1) +
+            " selected. Please select a size.";
+    });
+
+    card.querySelectorAll(".size-btn").forEach(function(button) {
+
+        button.addEventListener("click", function(event) {
+
+            event.stopPropagation();
+
+            selectedSize = button.getAttribute("data-size");
+
+            card.querySelectorAll(".size-btn").forEach(function(item) {
+                item.classList.remove("selected-size");
+            });
+
+            button.classList.add("selected-size");
+
+            document.getElementById("message").textContent =
+                "Size " + selectedSize + " selected.";
+        });
+
+    });
+
+});
+
+        // Money is stored in centavos.
+        function money(amount) {
+            return (amount / 100).toFixed(2);
+        }
+ 
+        document.getElementById("orderForm").addEventListener(
+            "submit",
+            function(event) {
+                event.preventDefault();
+                addOrder();
+            }
+        );
+ 
+        document.getElementById("payment").addEventListener(
+            "input",
+            function() {
+                document.getElementById("change").textContent = "0.00";
+                document.getElementById("message").textContent = "";
+            }
+        );
+            
+        function addOrder() {
+            let dress = document.getElementById("food").value;
+
+            let rentalDays = Number(
+                document.getElementById("quantity").value
+            );
+
+            if (selectedSize === "") {
+                document.getElementById("message").textContent =
+                    "Please select a size first.";
+        return;
+        }
+ 
+            let dressName = "";
+            let price = 0;
+ 
+            if (!Number.isInteger(rentalDays) ||
+                rentalDays < 1 || rentalDays > 100) {
+                document.getElementById("message").textContent =
+                    "Enter a whole number from 1 to 100.";
+                return;
+            }
+ 
+            if (dress === "elara") {
+                dressName = "Elara";
+                price = 10000;
+
+            } else if (dress === "emmanuelle") {
+                dressName = "Emmanuelle";
+                price = 15000;
+
+            } else if (dress === "roselle") {
+                dressName = "Roselle";
+                price = 15000;
+
+            } else if (dress === "celestia") {
+                dressName = "Celestia";
+                price = 18000;
+            } else if (dress === "seraphina") {
+                dressName = "Seraphina";
+                price = 20000;
+            } else if (dress === "amara") {
+                dressName = "Amara";
+                price = 20000;
+            } else {
+                return;
+            }
+ 
+            let subtotal = price * rentalDays;
+ 
+            orders.push({
+                name: dressName,
+                size: selectedSize,
+                price: price,
+                quantity: rentalDays,
+                subtotal: subtotal
+            });
+ 
+            total = total + subtotal;
+ 
+            let row = document.getElementById("orderList").insertRow();
+ 
+            row.insertCell(0).textContent = dressName;
+            row.insertCell(1).textContent = selectedSize;
+            row.insertCell(2).textContent = "₱" + money(price);
+            row.insertCell(3).textContent = rentalDays;
+            row.insertCell(4).textContent = "₱" + money(subtotal);
+ 
+            document.getElementById("total").textContent = money(total);
+            document.getElementById("quantity").value = 1;
+            selectedSize = "";
+
+            document.querySelectorAll(".size-btn").forEach(function(button) {
+            button.classList.remove("selected-size");
+            });
+ 
+            document.getElementById("payment").value = "";
+            document.getElementById("change").textContent = "0.00";
+ 
+            document.getElementById("message").textContent =
+                dressName + " added to your rental.";
+
+            
+        }
+ 
+        function calculateChange() {
+            let paymentInput = document.getElementById("payment");
+            let message = document.getElementById("message");
+ 
+            document.getElementById("change").textContent = "0.00";
+ 
+            if (orders.length === 0) {
+                message.textContent = "Please add an order first.";
+                return null;
+            }
+ 
+            if (!paymentInput.checkValidity() ||
+                !Number.isFinite(Number(paymentInput.value))) {
+                message.textContent =
+                    "Enter a valid payment with up to two decimal places.";
+                return null;
+            }
+ 
+            let payment = Math.round(Number(paymentInput.value) * 100);
+ 
+            if (!Number.isSafeInteger(payment)) {
+                message.textContent = "Payment amount is too large.";
+                return null;
+            }
+ 
+            if (payment < total) {
+                message.textContent =
+                    "Insufficient payment. Add ₱" +
+                    money(total - payment) + ".";
+                return null;
+            }
+ 
+            let change = payment - total;
+ 
+            document.getElementById("change").textContent = money(change);
+            message.textContent = "Payment is sufficient. Ready to print.";
+ 
+            return {
+                payment: payment,
+                change: change
+            };
+        }
+ 
+        function prepareReceipt(result) {
+
+            let customerName =
+
+            document.getElementById("customerName").value.trim();
+
+            document.getElementById("receiptCustomer").textContent =
+                "Customer: " + customerName;
+
+            
+
+            document.getElementById("receiptDate").textContent =
+                new Date().toLocaleString("en-PH");
+ 
+            let receiptItems = document.getElementById("receiptItems");
+            receiptItems.innerHTML = "";
+ 
+            for (let i = 0; i < orders.length; i++) {
+                let item = orders[i];
+ 
+                let itemBox = document.createElement("div");
+                itemBox.className = "receipt-item";
+ 
+                let name = document.createElement("p");
+                name.textContent = item.name;
+ 
+                let details = document.createElement("div");
+                details.className = "receipt-row";
+ 
+                let quantityPrice = document.createElement("span");
+                quantityPrice.textContent =
+                    item.quantity + " x " + money(item.price);
+ 
+                let subtotal = document.createElement("span");
+                subtotal.textContent = money(item.subtotal);
+ 
+                details.appendChild(quantityPrice);
+                details.appendChild(subtotal);
+ 
+                itemBox.appendChild(name);
+                itemBox.appendChild(details);
+ 
+                receiptItems.appendChild(itemBox);
+            }
+ 
+            document.getElementById("receiptTotal").textContent =
+                "PHP " + money(total);
+ 
+            document.getElementById("receiptPayment").textContent =
+                "PHP " + money(result.payment);
+ 
+            document.getElementById("receiptChange").textContent =
+                "PHP " + money(result.change);
+        }
+ 
+        function setReceiptPaperSize() {
+            let receipt = document.getElementById("receipt");
+ 
+            receipt.classList.add("measuring");
+ 
+            // Convert CSS pixels to millimeters.
+            let heightInPixels = receipt.getBoundingClientRect().height;
+            let heightInMillimeters = heightInPixels * 25.4 / 96;
+ 
+            // Add a small allowance at the bottom.
+            let paperHeight = Math.max(
+                100,
+                Math.ceil(heightInMillimeters + 5)
+            );
+ 
+            receipt.classList.remove("measuring");
+ 
+            document.getElementById("paperSize").textContent =
+                "@page { size: 80mm " + paperHeight +
+                "mm; margin: 0; }";
+        }
+ 
+        function printReceipt() {
+
+            let customerName = document.getElementById("customerName")
+            if (customerName.value.trim()=== "") {
+                document.getElementById("message").textContent =
+                    "Please enter the customer name first.";
+                customerName.focus();
+                return;
+            }
+
+            let result = calculateChange();
+ 
+            if (result === null) {
+                return;
+            }
+ 
+            prepareReceipt(result);
+            setReceiptPaperSize();
+ 
+            window.print();
+        }
+ 
+        function clearOrder() {
+            orders = [];
+            total = 0;
+ 
+            document.getElementById("orderList").innerHTML = "";
+            document.getElementById("total").textContent = "0.00";
+            document.getElementById("quantity").value = 1;
+            document.getElementById("payment").value = "";
+            document.getElementById("change").textContent = "0.00";
+            document.getElementById("receiptItems").innerHTML = "";
+ 
+            document.getElementById("receiptTotal").textContent = "";
+            document.getElementById("receiptPayment").textContent = "";
+            document.getElementById("receiptChange").textContent = "";
+            document.getElementById("customerName").value = "";
+            document.getElementById("receiptCustomer").textContent= "";
+            document.getElementById("receiptDate").textContent = "";
+ 
+            document.getElementById("message").textContent =
+                "Order cleared.";
+        }
+    
+        function openSizeGuide() {
+            document.getElementById("sizeGuide").classList.add("show");
+        }
+
+        function closeSizeGuide() {
+            document.getElementById("sizeGuide").classList.remove("show");
+        }
+    </script>
+</body>
+</html>
